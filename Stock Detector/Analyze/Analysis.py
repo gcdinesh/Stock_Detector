@@ -2,10 +2,12 @@ import pandas as pd
 from pandas import DataFrame
 from os.path import exists
 from datetime import datetime
-from pandas_datareader import data
+from pandas_datareader import data as pdr
+import yfinance as yfin
 
 pd.set_option('display.max_columns', None)
 file = pd.read_csv("../resources/StockTemplate.csv")
+yfin.pdr_override()
 outputDf = DataFrame(file)
 
 # if latest data needed replace 2022-08-23 with today's date
@@ -24,8 +26,8 @@ class Analyzer(object):
         fileExists = exists(filePath)
         if(not fileExists):
             print("File does not exist. Fetching it for: " + self.tickerSymbol)
-            panel_data = data.DataReader(
-                self.tickerSymbol, 'yahoo', '2000-01-01', '2022-08-23')
+            panel_data = pdr.get_data_yahoo(
+                self.tickerSymbol, start='2020-01-01', end='2023-02-02')
             DataFrame(panel_data).to_csv(filePath)
         else:
             print("File Exists for: " + self.tickerSymbol)
@@ -185,7 +187,7 @@ class Analyzer(object):
 
     # Recovery time for each year high to achieve more than 10% of invested value
     def getNumberOfYearsTakenFromThatYearHigh(self):
-        noOfYears = 10
+        noOfYears = 12
         year = 10
         average = 0.0
         for i in range(noOfYears):
