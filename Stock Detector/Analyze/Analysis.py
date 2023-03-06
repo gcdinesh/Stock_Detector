@@ -27,7 +27,7 @@ class Analyzer(object):
         if(not fileExists):
             print("File does not exist. Fetching it for: " + self.tickerSymbol)
             panel_data = pdr.get_data_yahoo(
-                self.tickerSymbol, start='2020-01-01', end='2023-02-02')
+                self.tickerSymbol, start='2005-01-01', end='2023-03-06')
             DataFrame(panel_data).to_csv(filePath)
         else:
             print("File Exists for: " + self.tickerSymbol)
@@ -320,7 +320,7 @@ tickerSymbols = ["ADANIPORTS.NS", "APOLLOHOSP.NS", "ASIANPAINT.NS", "AXISBANK.NS
 #                  "SOBHA.NS", "SONATSOFTW.NS", "STLTECH.NS", "SPARC.NS", "SUNTECK.NS",
 #                  "SUZLON.NS", "TV18BRDCST.NS", "TANLA.NS", "UTIAMC.NS", "VIPIND.NS", "VTL.NS",
 #                  "WELSPUNIND.NS", "ZENSARTECH.NS"]
-tickerSymbols = ["BAJFINANCE.NS"]
+# tickerSymbols = ["BAJFINANCE.NS"]
 # check SUNDARMFIN.NS average recovery time
 for i in tickerSymbols:
     analyze = Analyzer(i)
